@@ -1,3 +1,9 @@
+# Todo:
+
+Run `ansible-playbook --check --ask-vault-pass local.yml` to test if this is working yet.
+
+## Leftover todo's from ThePrimeagen's repo:
+
 ### Vim plug is not installing in the correct location
 ??
 
