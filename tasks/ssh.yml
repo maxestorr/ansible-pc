@@ -25,6 +25,15 @@
     - dotfiles
     - install
     - ssh
+- name: Install ssh config file
+  copy:
+    src: "./.ssh/config"
+    dest: "{{ home }}/.ssh/config"
+    mode: 0644
+  tags:
+    - dotfiles
+    - install
+    - ssh
 - name: Set authorized key took from file
   authorized_key:
     user: "{{ lookup('env', 'USER') }}"
