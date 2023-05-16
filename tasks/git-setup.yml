@@ -5,6 +5,7 @@
     value: "maxestorr@gmail.com"
   tags:
   - git-personal
+
 - name: Git personal setup name
   git_config:
     name: user.name
