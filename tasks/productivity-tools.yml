@@ -6,6 +6,23 @@
     - install
     - productivity
 
+- name: Does TPM exist?
+  stat:
+    path: "{{ home }}/.tmux/plugins/tpm"
+  register: tpm_git
+  tags:
+    - install
+    - productivity
+
+- name: Cloning tmux package manager (tpm)
+  ansible.builtin.git:
+    repo: 'git clone https://github.com/tmux-plugins/tpm'
+    dest: "{{ home }}/.tmux/plugins/tpm"
+  tags:
+    - install
+    - productivity
+  when: tpm_git.stat.exists == False
+
 # - name: kdenlive ppa (ppa:kdenlive/kdenlive-stable)
 #   become: true
 #   apt_repository:

@@ -23,7 +23,7 @@
     - include: tasks/dotfiles.yml
     - include: tasks/productivity-tools.yml
     # - include: tasks/lsp.yml
-    # - include: tasks/node-setup.yml
+    - include: tasks/node-setup.yml
     # - include: tasks/npm-packages.yml
     # - include: tasks/slack-setup.yml
     # - include: tasks/personal-projects.yml
