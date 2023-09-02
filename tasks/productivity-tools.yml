@@ -2,7 +2,7 @@
   become: true
   apt:
     name: [ "tmux", "wireshark", "fzf", "kdenlive", "gimp", "xclip", "screenkey", 
-      "tldr", "ripgrep", "bat", "ranger", 
+      "tldr", "ripgrep", "bat", "ranger", "jq", 
     ]
   tags:
     - install
