@@ -10,7 +10,7 @@
 
 - name: Does TPM exist?
   stat:
-    path: "{{ home }}/.tmux/plugins/tpm"
+    path: "{{ home }}/.config/.tmux/plugins/tpm"
   register: tpm_git
   tags:
     - install
@@ -18,12 +18,33 @@
 
 - name: Cloning tmux package manager (tpm)
   ansible.builtin.git:
-    repo: 'git clone https://github.com/tmux-plugins/tpm'
-    dest: "{{ home }}/.tmux/plugins/tpm"
+    repo: 'https://github.com/tmux-plugins/tpm'
+    dest: "{{ home }}/.config/.tmux/plugins/tpm"
   tags:
     - install
     - productivity
   when: tpm_git.stat.exists == False
+
+- name: Does lazygit exist?
+  stat:
+    path: "/usr/local/bin/lazygit"
+  register: lazygit
+  tags:
+    - install
+    - productivity
+
+- name: Install lazygit
+  ansible.builtin.shell: |
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    rm lazygit.tar.gz
+    rm -fr lazygit
+  tags:
+    - install
+    - productivity
+  when: lazygit.stat.exists == False
 
 # - name: kdenlive ppa (ppa:kdenlive/kdenlive-stable)
 #   become: true

@@ -39,8 +39,25 @@
     - install
     - node
 
-- name: Install correct version of Node
-  shell: n 14
+- name: Clone n
+  ansible.builtin.git:
+    repo: 'https://github.com/tj/n.git'
+    dest: "{{ home }}/n"
   tags:
     - install
     - node
+
+- name: Install n
+  become: true
+  shell: "cd {{ home }}/n && make install"
+  tags:
+    - install
+    - node
+
+- name: Install correct version of Node
+  become: true
+  shell: n latest
+  tags:
+    - install
+    - node
+
