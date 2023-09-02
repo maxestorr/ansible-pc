@@ -10,7 +10,7 @@
 
 - name: Does TPM exist?
   stat:
-    path: "{{ home }}/.config/.tmux/plugins/tpm"
+    path: "{{ home }}/.tmux/plugins/tpm"
   register: tpm_git
   tags:
     - install
@@ -19,7 +19,7 @@
 - name: Cloning tmux package manager (tpm)
   ansible.builtin.git:
     repo: 'https://github.com/tmux-plugins/tpm'
-    dest: "{{ home }}/.config/.tmux/plugins/tpm"
+    dest: "{{ home }}/.tmux/plugins/tpm"
   tags:
     - install
     - productivity
