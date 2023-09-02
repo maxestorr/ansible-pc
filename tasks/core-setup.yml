@@ -19,7 +19,10 @@
 - name: Install System Packages 3 (the rest)
   become: true
   apt:
-    name: [ "curl", "htop", "lsof", "ccache", "ninja-build", "python3-pip", "moreutils", "clangd", ]
+    name: [ 
+      "curl", "htop", "lsof", "ccache", "ninja-build", "python3-pip", "moreutils",
+      "clangd", "xdg-utils",
+    ]
   tags:
     - install
     - core
