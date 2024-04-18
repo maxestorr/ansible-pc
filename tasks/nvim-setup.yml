@@ -22,7 +22,7 @@
     - neovim
 
 - name: Build neovim
-  shell: "cd {{ home }}/neovim && make -j 20"
+  shell: "sudo make CMAKE_BUILD_TYPE=RelWithDebInfo -j 20"
   tags:
     - install
     - neovim
