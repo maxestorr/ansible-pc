@@ -15,7 +15,9 @@
       - install
       - core
   tasks:
-    - 
+    # TODO: None of the tasks below are named/tagged
+    # assuming include_tasks is not proper method
+    # e.g. run `ansible-playbook --list-tasks local.yml`
     - include_tasks: tasks/ssh.yml
     - include_tasks: tasks/git-setup.yml
     - include_tasks: tasks/core-setup.yml

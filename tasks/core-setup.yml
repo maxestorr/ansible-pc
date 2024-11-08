@@ -21,7 +21,7 @@
   apt:
     name: [ 
       "curl", "htop", "lsof", "ccache", "ninja-build", "python3-pip", "moreutils",
-      "clangd", "xdg-utils",
+      "clangd", "xdg-utils", "wslu"
     ]
   tags:
     - install
