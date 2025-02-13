@@ -1,0 +1,17 @@
+common:
+  - git
+  - tmux
+  - fzf
+  - ripgrep
+  - bat
+  - eza
+
+debian:
+  - python3-poetry
+  - wslu
+
+macos:
+  - pyenv
+  - poetry
+  - zoxide
+

@@ -1,12 +1,16 @@
 - hosts: localhost
   gather_facts: yes  # Gather host information, e.g. os_family
+  vars_files:
+    - packages.yml
   vars:
     home:       "{{ lookup('env', 'HOME') }}"
     repos:       "{{ home }}/repos"
     source_key: "./.ssh/id_rsa_github"
     dest_key:   "{{ home }}/.ssh/id_rsa_github"
 
-  tasks:
+
+  pre_tasks:
+
     - name: Check OS Type
       debug:
         msg: "Detected OS: {{ ansible_facts['os_family'] }}"
@@ -23,32 +27,49 @@
         - "{{ home }}/.local/share"
         - "{{ home }}/repos"
 
-    - name: Run tasks for Ubuntu
+    - name: Update Apt
       when: ansible_facts['os_family'] == "Debian"
       block:
         - name: Update Apt
           become: true
           apt:
-            force_apt_get: true
             update_cache: true
-            state: present
-          tags:
-            - install
-            - core
 
-        - include_tasks: tasks/ssh.yml
-        - include_tasks: tasks/git-setup.yml
-        - include_tasks: tasks/core-setup.yml
-        - include_tasks: tasks/nvim-setup.yml
-        - include_tasks: tasks/dotfiles.yml
-        - include_tasks: tasks/productivity-tools.yml
-        - include_tasks: tasks/node-setup.yml
-
-    - name: Run tasks for macOS
+    - name: Update Homebrew
       when: ansible_facts['os_family'] == "Darwin"
+      block:
+        - name: Update Homebrew
+          homebrew:
+            update_homebrew: true
+
+  tasks:
+
+    - name: Set package list based on OS
+      set_fact:
+        package_list: >-
+          {{ common + (debian if ansible_facts['os_family'] == 'Debian'
+                       else macos if ansible_facts['os_family'] == 'Darwin'
+                       else []) }}
+
+    - name: Install packages on Debian-based systems
+      become: yes
+      apt:
+        name: "{{ package_list }}"
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install packages on macOS
+      homebrew:
+        name: "{{ package_list }}"
+        state: present
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    - name: Run common tasks
       block:
         # TODO: ssh.yml is only setup for git tbh maybe combine
         - include_tasks: tasks/ssh.yml
         - include_tasks: tasks/git-setup.yml
         - include_tasks: tasks/nvim-setup.yml
-
+        #- include_tasks: tasks/dotfiles.yml
+        #- include_tasks: tasks/productivity-tools.yml
+        #- include_tasks: tasks/node-setup.yml

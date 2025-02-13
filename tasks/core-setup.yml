@@ -11,8 +11,7 @@
   become: true
   apt:
     name: [ "lua5.1", "unzip", "libtool", "libtool-bin", "gettext"]
-  tags:
-    - install
+  tags: - install
     - neovim
     - core
 

@@ -1,7 +1,7 @@
 - name: Install packages
   become: true
   apt:
-    name: [ "tmux", "wireshark", "fzf", "kdenlive", "gimp", "xclip", "screenkey", 
+    name: [ "tmux", "fzf", "kdenlive", "gimp", "xclip", "screenkey", 
       "tldr", "ripgrep", "bat", "ranger", "jq", "eza", "fd-find", ]
   tags:
     - install
@@ -23,38 +23,6 @@
     - productivity
   when: pyenv_dir.stat.exists == False
 
-- name: Does uv exist?
-  stat:
-    path: "{{ home }}/.local/bin/uv"
-  register: uv_dir
-  tags:
-    - install
-    - productivity
-
-- name: Install uv
-  become: true
-  ansible.builtin.shell: curl -LsSf https://astral.sh/uv/install.sh | sh
-  tags:
-    - install
-    - productivity
-  when: uv_dir.stat.exists == False
-
-- name: Does Poetry exist
-  stat:
-    path: "{{ home }}/.local/bin/poetry"
-  register: poetry_dir
-  tags:
-    - install
-    - productivity
-
-- name: Install Poetry
-  become: true
-  ansible.builtin.shell: uv tool install poetry
-  tags:
-    - install
-    - productivity
-  when: poetry_dir.stat.exists == False
-  
 - name: Does TPM exist?
   stat:
     path: "{{ home }}/.tmux/plugins/tpm"
@@ -92,23 +60,3 @@
     - install
     - productivity
   when: lazygit.stat.exists == False
-
-# - name: kdenlive ppa (ppa:kdenlive/kdenlive-stable)
-#   become: true
-#   apt_repository:
-#    repo: ppa:kdenlive/kdenlive-stable
-#    state: present
-#    update_cache: True
-#   tags:
-#     - install
-#     - productivity
-# 
-# - name: shutter ppa (ppa:linuxuprising/shutter)
-#   become: true
-#   apt_repository:
-#    repo: ppa:linuxuprising/shutter
-#    state: present
-#    update_cache: True
-#   tags:
-#     - install
-#     - productivity
