@@ -2,9 +2,9 @@
   gather_facts: yes  # Gather host information, e.g. os_family
   vars:
     home:       "{{ lookup('env', 'HOME') }}"
+    repos:       "{{ home }}/repos"
     source_key: "./.ssh/id_rsa_github"
     dest_key:   "{{ home }}/.ssh/id_rsa_github"
-    personal:   "{{ home }}/personal"
 
   tasks:
     - name: Check OS Type
@@ -24,6 +24,7 @@
             - install
             - core
 
+        #- include_tasks: tasks/xdg-filespec.yml
         - include_tasks: tasks/ssh.yml
         - include_tasks: tasks/git-setup.yml
         - include_tasks: tasks/core-setup.yml
@@ -35,11 +36,8 @@
     - name: Run tasks for macOS
       when: ansible_facts['os_family'] == "Darwin"
       block:
-        - name: Dummy task for macOS
-          debug:
-            msg: "This is a placeholder for macOS tasks."
-
+        #- include_tasks: tasks/xdg-filespec.yml
+        # ssh.yml is only setup for git tbh
         - include_tasks: tasks/ssh.yml
         - include_tasks: tasks/git-setup.yml
         - include_tasks: tasks/nvim-setup.yml
-        - include_tasks: tasks/dotfiles.yml

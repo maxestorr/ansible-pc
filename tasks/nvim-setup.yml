@@ -1,48 +1,49 @@
-- name: Remove neovim
-  shell: rm -rf ~/neovim
-  tags:
-    - install
-    - neovim
-
-# I don't use packer
-# - name: Get Packer
-#   ansible.builtin.git:
-#     repo: 'https://github.com/wbthomason/packer.nvim'
-#     dest: "{{ home }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-#   tags:
-#     - install
-#     - neovim
+# TODO: This should be done elsewhere and put into a stat
+# since building neovim is OS indepedent but prereqs aren't
+- name: Install Neovim build prereq's
+  when: ansible_facts['os_family'] == "Darwin"
+  homebrew:
+    name:
+      - ninja 
+      - cmake
+      - gettext
+      - curl
+    state: present
 
 - name: Clone Neovim
-  ansible.builtin.git:
-    repo: 'https://github.com/neovim/neovim.git'
-    dest: "{{ home }}/neovim"
+  git:
+    repo: "https://github.com/neovim/neovim.git"
+    dest: "{{ repos }}/neovim"
+    update: yes
+    force: yes
+  register: git_status
+
+- name: Display update status
+  debug:
+    msg: "Neovim repo was updated!"
+  when: git_status.after != git_status.before
+
+- name: Build & install neovim
+  when: git_status.after != git_status.before
+  shell: |
+    cd {{ repos }}/neovim
+    rm -r build/
+    make CMAKE_BUILD_TYPE=Release
+    make CMAKE_INSTALL_PREFIX={{ home }}/.local/lib/neovim install
   tags:
     - install
     - neovim
 
-- name: Build neovim
-  shell: "cd {{ home }}/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo -j 20"
-  tags:
-    - install
-    - neovim
+# Should be done in pre_tasks
+- name: Ensure ~/.local/bin exists
+  file:
+    path: "{{ home }}/.local/bin"
+    state: directory
+    mode: "0755"
 
-- name: Install neovim
-  become: true
-  shell: "cd {{ home }}/neovim && make install"
-  tags:
-    - install
-    - neovim
-
-# - name: Neovim Plugin Development 1
-#   become: true
-#   apt: name=luarocks
-#   tags:
-#     - install
-#     - neovim
-# - name: Neovim Plugin Development 2 luacheck
-#   become: true
-#   shell: luarocks install luacheck
-#   tags:
-#     - install
-#     - neovim
+- name: Symlink Neovim binary to ~/.local/bin/nvim
+  file:
+    src: "{{ home }}/.local/lib/neovim/bin/nvim"
+    dest: "{{ home }}/.local/bin/nvim"
+    state: link
+    force: yes
