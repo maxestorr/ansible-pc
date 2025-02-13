@@ -1,5 +1,14 @@
-# TODO: This should be done elsewhere and put into a stat
-# since building neovim is OS indepedent but prereqs aren't
+- name: Install Neovim Debian build prereq's
+  when: ansible_facts['os_family'] == "Debian"
+  apt:
+    name:
+      - ninja-build
+      - cmake
+      - gettext
+      - curl
+    state: present
+    become: true
+
 - name: Install Neovim build prereq's
   when: ansible_facts['os_family'] == "Darwin"
   homebrew:
@@ -18,10 +27,14 @@
     force: yes
   register: git_status
 
-- name: Display update status
+- name: Display Neovim update status
   debug:
-    msg: "Neovim repo was updated!"
-  when: git_status.after != git_status.before
+    msg: |
+      {% if git_status.after != git_status.before %}
+      Neovim repo was updated! Latest commit: {{ git_status.after }}
+      {% else %}
+      No update - already up to date. Current commit: {{ git_status.before }}
+      {% endif %}
 
 - name: Build & install neovim
   when: git_status.after != git_status.before
