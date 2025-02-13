@@ -1,20 +1,14 @@
 - name: Cloning .dotfiles
-  ansible.builtin.git:
-    repo: 'git@github.com:maxestorr/.dotfiles.git'
+  git:
+    repo: "git@github.com:maxestorr/.dotfiles.git"
     dest: "{{ home }}/.dotfiles"
     recursive: yes
     update: yes
     accept_hostkey: yes
     version: master
-  tags:
-    - install
-    - dotfiles
-    - stow
 
 - name: Stow dotfiles
-  shell: cd $HOME/.dotfiles && ./stow.sh
-  tags:
-    - install
-    - dotfiles
-    - stow
+  shell: |
+    cd {{ home }}/.dotfiles
+    ./stow.sh
 
