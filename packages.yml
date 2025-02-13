@@ -5,6 +5,7 @@ common:
   - ripgrep
   - bat
   - eza
+  - stow
 
 debian:
   - python3-poetry
