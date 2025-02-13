@@ -1,27 +1,19 @@
-- name: Install packages
-  become: true
-  apt:
-    name: [ "tmux", "fzf", "kdenlive", "gimp", "xclip", "screenkey", 
-      "tldr", "ripgrep", "bat", "ranger", "jq", "eza", "fd-find", ]
-  tags:
-    - install
-    - productivity
-
-- name: Does PyEnv exist?
-  stat:
-    path: "{{ home }}/.pyenv"
-  register: pyenv_dir
-  tags:
-    - install
-    - productivity
-
-- name: Install pyenv
-  become: true
-  ansible.builtin.shell: curl https://pyenv.run | bash
-  tags:
-    - install
-    - productivity
-  when: pyenv_dir.stat.exists == False
+# TODO: Set this up manually for Debian, it's a brew package on macOS
+#- name: Does PyEnv exist?
+#  stat:
+#    path: "{{ home }}/.pyenv"
+#  register: pyenv_dir
+#  tags:
+#    - install
+#    - productivity
+#
+#- name: Install pyenv
+#  become: true
+#  ansible.builtin.shell: curl https://pyenv.run | bash
+#  tags:
+#    - install
+#    - productivity
+#  when: pyenv_dir.stat.exists == False
 
 - name: Does TPM exist?
   stat:
@@ -40,23 +32,24 @@
     - productivity
   when: tpm_git.stat.exists == False
 
-- name: Does lazygit exist?
-  stat:
-    path: "/usr/local/bin/lazygit"
-  register: lazygit
-  tags:
-    - install
-    - productivity
-
-- name: Install lazygit
-  ansible.builtin.shell: |
-    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    tar xf lazygit.tar.gz lazygit
-    sudo install lazygit /usr/local/bin
-    rm lazygit.tar.gz
-    rm -fr lazygit
-  tags:
-    - install
-    - productivity
-  when: lazygit.stat.exists == False
+# TODO: Set this up manually for Debian, it's a brew package on macOS
+#- name: Does lazygit exist?
+#  stat:
+#    path: "/usr/local/bin/lazygit"
+#  register: lazygit
+#  tags:
+#    - install
+#    - productivity
+#
+#- name: Install lazygit
+#  ansible.builtin.shell: |
+#    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+#    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+#    tar xf lazygit.tar.gz lazygit
+#    sudo install lazygit /usr/local/bin
+#    rm lazygit.tar.gz
+#    rm -fr lazygit
+#  tags:
+#    - install
+#    - productivity
+#  when: lazygit.stat.exists == False
