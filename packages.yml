@@ -6,14 +6,18 @@ common:
   - bat
   - eza
   - stow
+  - curl
+  - unzip
 
 debian:
   - python3-poetry
   - wslu
+  - nodejs
 
 macos:
   - pyenv
   - poetry
   - zoxide
   - lazygit
+  - node
 
