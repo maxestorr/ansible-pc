@@ -11,6 +11,18 @@
       debug:
         msg: "Detected OS: {{ ansible_facts['os_family'] }}"
 
+    - name: Ensure XDG and other directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ home }}/.config"
+        - "{{ home }}/.local/bin"
+        - "{{ home }}/.local/lib"
+        - "{{ home }}/.local/share"
+        - "{{ home }}/repos"
+
     - name: Run tasks for Ubuntu
       when: ansible_facts['os_family'] == "Debian"
       block:
@@ -24,7 +36,6 @@
             - install
             - core
 
-        #- include_tasks: tasks/xdg-filespec.yml
         - include_tasks: tasks/ssh.yml
         - include_tasks: tasks/git-setup.yml
         - include_tasks: tasks/core-setup.yml
@@ -36,8 +47,8 @@
     - name: Run tasks for macOS
       when: ansible_facts['os_family'] == "Darwin"
       block:
-        #- include_tasks: tasks/xdg-filespec.yml
-        # ssh.yml is only setup for git tbh
+        # TODO: ssh.yml is only setup for git tbh maybe combine
         - include_tasks: tasks/ssh.yml
         - include_tasks: tasks/git-setup.yml
         - include_tasks: tasks/nvim-setup.yml
+

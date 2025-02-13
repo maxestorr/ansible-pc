@@ -10,13 +10,6 @@
       - curl
     state: present
 
-# TODO: Should be done in pre_tasks
-- name: Ensure ~/repos exists
-  file:
-    path: "{{ home }}/repos"
-    state: directory
-    mode: "0755"
-
 - name: Clone Neovim
   git:
     repo: "https://github.com/neovim/neovim.git"
@@ -41,16 +34,10 @@
     - install
     - neovim
 
-# TODO: Should be done in pre_tasks
-- name: Ensure ~/.local/bin exists
-  file:
-    path: "{{ home }}/.local/bin"
-    state: directory
-    mode: "0755"
-
 - name: Symlink Neovim binary to ~/.local/bin/nvim
   file:
     src: "{{ home }}/.local/lib/neovim/bin/nvim"
     dest: "{{ home }}/.local/bin/nvim"
     state: link
     force: yes
+
