@@ -1,0 +1,5 @@
+- name: Setup tmux plugin manager (tpm)
+  ansible.builtin.git:
+    repo: 'https://github.com/tmux-plugins/tpm'
+    dest: "{{ home }}/.config/tmux/plugins/tpm"
+

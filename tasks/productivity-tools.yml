@@ -15,23 +15,6 @@
 #    - productivity
 #  when: pyenv_dir.stat.exists == False
 
-- name: Does TPM exist?
-  stat:
-    path: "{{ home }}/.tmux/plugins/tpm"
-  register: tpm_git
-  tags:
-    - install
-    - productivity
-
-- name: Cloning tmux package manager (tpm)
-  ansible.builtin.git:
-    repo: 'https://github.com/tmux-plugins/tpm'
-    dest: "{{ home }}/.tmux/plugins/tpm"
-  tags:
-    - install
-    - productivity
-  when: tpm_git.stat.exists == False
-
 # TODO: Set this up manually for Debian, it's a brew package on macOS
 #- name: Does lazygit exist?
 #  stat:
