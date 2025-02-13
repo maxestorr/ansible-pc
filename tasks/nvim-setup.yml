@@ -10,6 +10,13 @@
       - curl
     state: present
 
+# TODO: Should be done in pre_tasks
+- name: Ensure ~/repos exists
+  file:
+    path: "{{ home }}/repos"
+    state: directory
+    mode: "0755"
+
 - name: Clone Neovim
   git:
     repo: "https://github.com/neovim/neovim.git"
@@ -34,7 +41,7 @@
     - install
     - neovim
 
-# Should be done in pre_tasks
+# TODO: Should be done in pre_tasks
 - name: Ensure ~/.local/bin exists
   file:
     path: "{{ home }}/.local/bin"
