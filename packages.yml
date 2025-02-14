@@ -15,9 +15,16 @@ debian:
   - nodejs
 
 macos:
+  # Terminal applications
   - pyenv
   - poetry
   - zoxide
   - lazygit
   - node
-
+  # Fix macOS stupidity, requires sudo
+  - betterdisplay
+  - unnaturalscrollwheels
+  - alt-tab
+  - raycast
+  # GUI apps
+  - dbeaver-community
