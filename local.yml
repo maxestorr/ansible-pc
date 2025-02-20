@@ -75,7 +75,9 @@
         #- include_tasks: tasks/node-setup.yml
 
     # TODO: Write Debian only tasks, e.g. running custom install scripts like pyenv
-    # - name: Run Debian tasks
-    #   block:
-    #     - include_tasks: tasks/ssh.yml
+    - name: Run Debian tasks
+      when: ansible_facts['os_family'] == 'Debian'
+      block:
+        - include_tasks: tasks/lazygit.yml
+        # - include_tasks: tasks/pyenv.yml
 
