@@ -9,6 +9,7 @@ common:
   - curl
   - unzip
   - tree
+  - luarocks
 
 debian:
   - python3-poetry
