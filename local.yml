@@ -25,22 +25,19 @@
         - "{{ home }}/.local/bin"
         - "{{ home }}/.local/lib"
         - "{{ home }}/.local/share"
-        - "{{ home }}/repos"
+        - "{{ home }}/personal"
+        - "{{ home }}/work"
 
     - name: Update Apt
       when: ansible_facts['os_family'] == "Debian"
-      block:
-        - name: Update Apt
-          become: true
-          apt:
-            update_cache: true
+      become: true
+      apt:
+        update_cache: true
 
     - name: Update Homebrew
       when: ansible_facts['os_family'] == "Darwin"
-      block:
-        - name: Update Homebrew
-          homebrew:
-            update_homebrew: true
+      homebrew:
+        update_homebrew: true
 
   tasks:
 
@@ -75,4 +72,9 @@
         # TODO: Remove unused files
         #- include_tasks: tasks/productivity-tools.yml
         #- include_tasks: tasks/node-setup.yml
+
+    # TODO: Write Debian only tasks, e.g. running custom install scripts like pyenv
+    # - name: Run Debian tasks
+    #   block:
+    #     - include_tasks: tasks/ssh.yml
 

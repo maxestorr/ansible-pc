@@ -1,5 +1,6 @@
 - name: Install Neovim Debian build prereq's
   when: ansible_facts['os_family'] == "Debian"
+  become: true
   apt:
     name:
       - ninja-build
@@ -7,7 +8,6 @@
       - gettext
       - curl
     state: present
-    become: true
 
 - name: Install Neovim build prereq's
   when: ansible_facts['os_family'] == "Darwin"
