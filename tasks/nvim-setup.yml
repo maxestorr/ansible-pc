@@ -38,8 +38,9 @@
 
 - name: Build & install neovim
   when: git_status.after != git_status.before
+  become: true  # Need perms to write to root if installing in default location
   shell: |
-    cd {{ repos }}/neovim
+    cd {{ personal }}/neovim
     rm -r build/
     make CMAKE_BUILD_TYPE=Release
     make install
