@@ -1,5 +1,5 @@
 - name: Setup tmux plugin manager (tpm)
   git:
     repo: 'https://github.com/tmux-plugins/tpm'
-    dest: "{{ home }}/.config/tmux/plugins/tpm"
+    dest: "{{ home }}/.tmux/plugins/tpm"
 
