@@ -14,6 +14,7 @@ debian:
   - python3-poetry
   - wslu
   - nodejs
+  - npm
 
   # PyEnv requirements for Ubuntu
   - build-essential

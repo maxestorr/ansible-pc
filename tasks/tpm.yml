@@ -3,3 +3,5 @@
     repo: 'https://github.com/tmux-plugins/tpm'
     dest: "{{ home }}/.tmux/plugins/tpm"
 
+- name: Install tpm plugins
+  shell: bash {{ home }}/.tmux/plugins/tpm/bin/install_plugins
