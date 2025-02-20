@@ -16,6 +16,7 @@ debian:
   - wslu
   - nodejs
   - npm
+  - fd-find
 
   # PyEnv requirements for Ubuntu
   - build-essential
@@ -39,10 +40,13 @@ macos:
   - zoxide
   - lazygit
   - node
+  - fd
+
   # Fix macOS stupidity, requires sudo
   - betterdisplay
   - unnaturalscrollwheels
   - alt-tab
   - raycast
+
   # GUI apps
   - dbeaver-community
