@@ -22,7 +22,7 @@
 - name: Clone Neovim
   git:
     repo: "https://github.com/neovim/neovim.git"
-    dest: "{{ repos }}/neovim"
+    dest: "{{ personal }}/neovim"
     update: yes
     force: yes
   register: git_status
@@ -42,15 +42,16 @@
     cd {{ repos }}/neovim
     rm -r build/
     make CMAKE_BUILD_TYPE=Release
-    make CMAKE_INSTALL_PREFIX={{ home }}/.local/lib/neovim install
+    make install
+    #make CMAKE_INSTALL_PREFIX={{ home }}/.local/lib/neovim install
   tags:
     - install
     - neovim
 
-- name: Symlink Neovim binary to ~/.local/bin/nvim
-  file:
-    src: "{{ home }}/.local/lib/neovim/bin/nvim"
-    dest: "{{ home }}/.local/bin/nvim"
-    state: link
-    force: yes
+#- name: Symlink Neovim binary to ~/.local/bin/nvim
+#  file:
+#    src: "{{ home }}/.local/lib/neovim/bin/nvim"
+#    dest: "{{ home }}/.local/bin/nvim"
+#    state: link
+#    force: yes
 

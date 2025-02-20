@@ -4,7 +4,8 @@
     - packages.yml
   vars:
     home:       "{{ lookup('env', 'HOME') }}"
-    repos:       "{{ home }}/repos"
+    work:       "{{ home }}/work"
+    personal:   "{{ home }}/personal"
     source_key: "./.ssh/id_rsa_github"
     dest_key:   "{{ home }}/.ssh/id_rsa_github"
 
@@ -25,8 +26,8 @@
         - "{{ home }}/.local/bin"
         - "{{ home }}/.local/lib"
         - "{{ home }}/.local/share"
-        - "{{ home }}/personal"
-        - "{{ home }}/work"
+        - "{{ personal }}"
+        - "{{ work }}"
 
     - name: Update Apt
       when: ansible_facts['os_family'] == "Debian"
