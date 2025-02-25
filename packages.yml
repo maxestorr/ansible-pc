@@ -17,6 +17,7 @@ debian:
   - nodejs
   - npm
   - fd-find
+  - xclip # wsl <-> windows clipboard sharing
 
   # PyEnv requirements for Ubuntu
   - build-essential
