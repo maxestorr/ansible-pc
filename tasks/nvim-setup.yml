@@ -23,6 +23,7 @@
   git:
     repo: "https://github.com/neovim/neovim.git"
     dest: "{{ personal }}/neovim"
+    version: v0.10.4
     update: yes
     force: yes
   register: git_status
