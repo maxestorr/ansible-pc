@@ -1,3 +1,14 @@
+- name: Enable Ubuntu universe repository
+  become: true
+  apt_repository:
+    repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe"
+    state: present
+    update_cache: true
+  when: ansible_distribution == "Ubuntu"
+  tags:
+    - install
+    - core
+
 - name: Install System Packages 1 (build-essential, cmake, pkg-config, pthread)
   become: true
   apt:
