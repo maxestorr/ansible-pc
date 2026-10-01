@@ -21,8 +21,9 @@
     home:       "{{ lookup('env', 'HOME') }}"
     work:       "{{ home }}/work"
     personal:   "{{ home }}/personal"
-    source_key: "./.ssh/id_rsa_github"
-    dest_key:   "{{ home }}/.ssh/id_rsa_github"
+    ssh_keys:
+      - id_rsa_github
+      - id_ed25519_bitbucket
 
 
   pre_tasks:
