@@ -1,1 +1,1 @@
-ansible-playbook -KJ local.yml
+ansible-playbook --vault-password-file ./.vault_pass local.yml
