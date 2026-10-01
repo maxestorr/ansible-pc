@@ -1,3 +1,18 @@
+# TODO:
+# Add work ssh keys
+# Add claude
+#   - sudo npm install -g @anthropic-ai/claude-code
+# Add wezterm config since it can't be symlinked from dotfiles to windows
+# Add fonts
+# Add justfile
+# Add aws cli
+# Correct the following nvim errors:
+# - /home/max/.config/nvim/lua/plugins/lsp/lsp.lua:54: attempt to call field 'setup_handlers' (a nil value)
+# - Important: VenvSelect is now using `main` as the updated branch again. Please remove `branch = regexp` from your config.
+# - [mason-null-ls] failed to install isort. Installation logs are available in :Mason and :MasonLog
+# - [mason-null-ls] failed to install black. Installation logs are available in :Mason and :MasonLog
+#   - apt install python3.12-venv
+
 - hosts: localhost
   gather_facts: yes  # Gather host information, e.g. os_family
   vars_files:
