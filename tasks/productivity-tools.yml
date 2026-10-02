@@ -1,19 +1,19 @@
 # TODO: Set this up manually for Debian, it's a brew package on macOS
-#- name: Does PyEnv exist?
-#  stat:
-#    path: "{{ home }}/.pyenv"
-#  register: pyenv_dir
-#  tags:
-#    - install
-#    - productivity
-#
-#- name: Install pyenv
-#  become: true
-#  ansible.builtin.shell: curl https://pyenv.run | bash
-#  tags:
-#    - install
-#    - productivity
-#  when: pyenv_dir.stat.exists == False
+name: Does PyEnv exist?
+stat:
+  path: "{{ home }}/.pyenv"
+register: pyenv_dir
+tags:
+  - install
+  - productivity
+
+name: Install pyenv
+become: true
+ansible.builtin.shell: curl -fsSkL https://pyenv.run | bash
+tags:
+  - install
+  - productivity
+when: pyenv_dir.stat.exists == False
 
 # TODO: Set this up manually for Debian, it's a brew package on macOS
 #- name: Does lazygit exist?
