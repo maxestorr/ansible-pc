@@ -1,12 +1,14 @@
-- name: Install Claude Code CLI
-  become: true
-  npm:
-    name: "@anthropic-ai/claude-code"
-    global: yes
-    state: present
-  tags:
-    - install
-    - claude
+- name: Check whether Claude Code is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.local/bin/claude"
+  register: claude_binary
+
+- name: Install Claude Code CLI locally
+  ansible.builtin.command:
+    cmd: npm install --global --prefix "{{ ansible_user_dir }}/.local" @anthropic-ai/claude-code
+  environment:
+    HOME: "{{ ansible_user_dir }}"
+  when: not claude_binary.stat.exists
 
 - name: Ensure .claude directory exists
   file:
