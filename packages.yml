@@ -13,11 +13,11 @@ common:
 
 debian:
   - python3-poetry
-  - wslu
   - nodejs
   - npm
   - fd-find
   - xclip # wsl <-> windows clipboard sharing
+  - lazygit
 
   # PyEnv requirements for Ubuntu
   - build-essential
