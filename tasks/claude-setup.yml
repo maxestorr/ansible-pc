@@ -1,8 +1,7 @@
 - name: Install Claude Code CLI
-  become: true
   npm:
     name: "@anthropic-ai/claude-code"
-    global: yes
+    path: "{{ home }}/.local"
     state: present
   tags:
     - install
