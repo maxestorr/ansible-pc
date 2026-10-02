@@ -1,0 +1,27 @@
+- name: Install Claude Code CLI
+  become: true
+  npm:
+    name: "@anthropic-ai/claude-code"
+    global: yes
+    state: present
+  tags:
+    - install
+    - claude
+
+- name: Ensure .claude directory exists
+  file:
+    dest: "{{ home }}/.claude"
+    state: directory
+    mode: "0755"
+  tags:
+    - install
+    - claude
+
+- name: Install Claude API key
+  copy:
+    src: "./.claude/api_key"
+    dest: "{{ home }}/.claude/api_key"
+    mode: "0600"
+  tags:
+    - install
+    - claude

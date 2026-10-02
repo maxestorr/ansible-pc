@@ -1,7 +1,5 @@
 # TODO:
 # Add work ssh keys
-# Add claude
-#   - sudo npm install -g @anthropic-ai/claude-code
 # Add wezterm config since it can't be symlinked from dotfiles to windows
 # Add fonts
 # Add justfile
@@ -82,9 +80,9 @@
       block:
         # TODO: ssh.yml is only setup for git tbh maybe combine
         - include_tasks: tasks/ssh.yml
-        - include_tasks: tasks/git-setup.yml
         - include_tasks: tasks/nvim-setup.yml
         - include_tasks: tasks/dotfiles.yml
+        - include_tasks: tasks/claude-setup.yml
         - include_tasks: tasks/tpm.yml
         # TODO: Remove unused files
         - include_tasks: tasks/productivity-tools.yml
